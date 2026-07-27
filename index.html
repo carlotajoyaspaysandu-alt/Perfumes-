@@ -241,7 +241,7 @@
         window.toggleAdminPanel = function() {
             const panel = document.getElementById('admin-panel');
             if (panel.classList.contains('hidden')) {
-                const password = prompt("Ingrese contraseña (2008#):");
+                const password = prompt("Ingrese contraseña:");
                 if (password === "2008#") {
                     panel.classList.remove('hidden');
                 } else if (password !== null) {
