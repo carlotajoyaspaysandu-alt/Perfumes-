@@ -21,9 +21,13 @@
                     URU <span class="font-light text-amber-700">PERFUMES</span>
                 </span>
                 <div class="flex items-center gap-2">
+                    <button type="button" onclick="toggleCartModal()" class="relative bg-stone-100 hover:bg-stone-200 text-stone-800 px-2.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider transition border border-stone-300">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
                     <button type="button" onclick="toggleAdminPanel()" class="bg-stone-100 hover:bg-stone-200 text-stone-800 px-2.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider transition border border-stone-300">
                         ⚙️ Admin
                     </button>
+                    <!-- Enlace directo oficial a WhatsApp Business -->
                     <a href="https://wa.me/59896643887" target="_blank" class="bg-stone-900 text-white px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider hover:bg-amber-800 transition shadow-sm">
                         WhatsApp
                     </a>
@@ -41,7 +45,7 @@
                 <div class="space-y-4 text-xs">
                     <div class="bg-stone-800 p-4 rounded-xl border border-stone-700 space-y-2">
                         <label class="block text-stone-400">Precio general ($):</label>
-                        <input type="text" id="admin-precio" value="$450" class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white" oninput="refrescarVistaActual()">
+                        <input type="text" id="admin-precio" value="$450" class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white" oninput="guardarPrecioGlobal()">
                     </div>
                     <div class="bg-stone-800 p-4 rounded-xl border border-stone-700 space-y-2">
                         <label class="block text-stone-400">Categoría:</label>
@@ -107,7 +111,7 @@
             <div id="seccion-catalogo" class="hidden">
                 <div class="text-center mb-6">
                     <h2 id="titulo-catalogo" class="text-xl font-bold tracking-tight text-stone-900">Catálogo</h2>
-                    <p class="text-stone-500 text-xs mt-1">Productos disponibles en stock</p>
+                    <p class="text-stone-500 text-xs mt-1">Tocá cualquier imagen para ver detalles y reseñas</p>
                 </div>
                 <div id="grid-productos" class="flex flex-col gap-4"></div>
             </div>
@@ -142,6 +146,46 @@
         </main>
     </div>
 
+    <!-- Modal de Detalles del Perfume -->
+    <div id="product-modal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-2xl p-5 relative space-y-3 shadow-xl">
+            <button type="button" onclick="closeProductModal()" class="absolute top-3 right-3 text-stone-400 hover:text-stone-700 text-sm font-bold">✕</button>
+            <span id="modal-cat-tag" class="text-[10px] font-semibold text-amber-700 uppercase tracking-wider"></span>
+            <h3 id="modal-title" class="font-bold text-stone-900 text-base"></h3>
+            <div class="bg-stone-50 p-3 rounded-xl border border-stone-100 space-y-2 text-xs text-stone-700">
+                <p><strong>👃 Composición y notas:</strong> <span id="modal-notes"></span></p>
+                <p><strong>🌤️ Época ideal:</strong> <span id="modal-season"></span></p>
+                <p><strong>⭐ Fijación estimada:</strong> Alta duración (8 a 12 horas en piel).</p>
+            </div>
+            <div class="flex items-center justify-between pt-2">
+                <span id="modal-price" class="font-bold text-stone-900 text-sm"></span>
+                <button type="button" id="modal-add-btn" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">Agregar al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito de Compras -->
+    <div id="cart-modal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-end sm:items-center justify-center sm:p-4">
+        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 relative space-y-4 shadow-xl max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-3">
+                <h3 class="font-bold font-cinzel text-stone-900 text-base">🛒 Tu Carrito de Compras</h3>
+                <button type="button" onclick="toggleCartModal()" class="text-stone-400 hover:text-stone-700 text-sm font-bold">✕</button>
+            </div>
+            <div id="cart-items-container" class="overflow-y-auto flex-1 space-y-2 text-xs divide-y divide-stone-100">
+                <!-- Items dinámicos -->
+            </div>
+            <div class="border-t border-stone-100 pt-3 space-y-3">
+                <div class="flex justify-between font-bold text-sm text-stone-900">
+                    <span>Total estimado:</span>
+                    <span id="cart-total">$0</span>
+                </div>
+                <button type="button" onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md">
+                    Enviar pedido por WhatsApp 📱
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-stone-900 text-stone-400 py-8 px-4 text-center border-t border-stone-800 mt-12">
         <div class="max-w-md mx-auto">
@@ -152,7 +196,7 @@
         </div>
     </footer>
 
-    <!-- Script con Protección por Contraseña para el Admin -->
+    <!-- Script Corregido y Optimizado -->
     <script>
         const femeninosList = [
             "La Vie Est Belle - Lancôme", "Good Girl - Carolina Herrera", "212 VIP Rosé - Carolina Herrera", 
@@ -187,15 +231,25 @@
             "Bleu de Chanel - Chanel", "Eros - Versace"
         ];
 
-        let imagenesPersonalizadas = { femeninos: {}, masculinos: {}, ofertas: {} };
+        // Cargar datos persistentes
+        let imagenesPersonalizadas = JSON.parse(localStorage.getItem('uru_imagenes')) || { femeninos: {}, masculinos: {}, ofertas: {} };
+        let precioGlobalGuardado = localStorage.getItem('uru_precio') || "$450";
+        let carrito = JSON.parse(localStorage.getItem('uru_carrito')) || [];
+
         let currentActiveList = null;
         let currentActiveContainer = null;
         let currentActiveCategoryName = null;
         let currentCategoryKey = null;
 
+        // Inicializar al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const inputPrecio = document.getElementById('admin-precio');
+            if (inputPrecio) inputPrecio.value = precioGlobalGuardado;
+            actualizarContadorCarrito();
+        });
+
         function toggleAdminPanel() {
             const panel = document.getElementById('admin-panel');
-            // Si el panel está oculto, pedimos contraseña primero
             if (panel.classList.contains('hidden')) {
                 const password = prompt("Por favor, ingrese la contraseña de administrador:");
                 if (password === "2008#") {
@@ -208,17 +262,27 @@
             }
         }
 
+        function guardarPrecioGlobal() {
+            const inputPrecio = document.getElementById('admin-precio');
+            if (inputPrecio) {
+                precioGlobalGuardado = inputPrecio.value;
+                localStorage.setItem('uru_precio', precioGlobalGuardado);
+                refrescarVistaActual();
+            }
+        }
+
         function guardarImagenIndividual() {
             const cat = document.getElementById('admin-cat-select').value;
             const num = parseInt(document.getElementById('admin-prod-num').value) - 1;
             const url = document.getElementById('admin-prod-img').value.trim();
 
-            if (num >= 0) {
+            if (num >= 0 && num < 30) {
                 imagenesPersonalizadas[cat][num] = url;
-                alert(`¡Imagen guardada para ${cat}, producto #${num + 1}!`);
+                localStorage.setItem('uru_imagenes', JSON.stringify(imagenesPersonalizadas));
+                alert(`¡Imagen guardada y persistida para ${cat}, producto #${num + 1}!`);
                 refrescarVistaActual();
             } else {
-                alert('Número de producto inválido.');
+                alert('Número de producto inválido (debe ser entre 1 y 30).');
             }
         }
 
@@ -229,19 +293,25 @@
         }
 
         function toggleCatalogoMenu() {
-            document.getElementById('catalogo-submenu').classList.toggle('hidden');
+            const submenu = document.getElementById('catalogo-submenu');
+            if (submenu) submenu.classList.toggle('hidden');
         }
 
         function showSection(sectionId) {
-            document.getElementById('catalogo-submenu').classList.add('hidden');
-            document.getElementById('seccion-catalogo').classList.add('hidden');
-            document.getElementById('seccion-trabaja').classList.add('hidden');
-            document.getElementById('seccion-ofertas').classList.add('hidden');
+            const submenu = document.getElementById('catalogo-submenu');
+            const secCat = document.getElementById('seccion-catalogo');
+            const secTrabaja = document.getElementById('seccion-trabaja');
+            const secOfertas = document.getElementById('seccion-ofertas');
 
-            if (sectionId === 'trabaja') {
-                document.getElementById('seccion-trabaja').classList.remove('hidden');
-            } else if (sectionId === 'ofertas') {
-                document.getElementById('seccion-ofertas').classList.remove('hidden');
+            if (submenu) submenu.classList.add('hidden');
+            if (secCat) secCat.classList.add('hidden');
+            if (secTrabaja) secTrabaja.classList.add('hidden');
+            if (secOfertas) secOfertas.classList.add('hidden');
+
+            if (sectionId === 'trabaja' && secTrabaja) {
+                secTrabaja.classList.remove('hidden');
+            } else if (sectionId === 'ofertas' && secOfertas) {
+                secOfertas.classList.remove('hidden');
                 currentActiveList = ofertasList;
                 currentActiveContainer = 'grid-ofertas';
                 currentActiveCategoryName = 'Oferta Especial';
@@ -251,76 +321,7 @@
         }
 
         function loadCategory(category) {
-            document.getElementById('catalogo-submenu').classList.add('hidden');
-            document.getElementById('seccion-trabaja').classList.add('hidden');
-            document.getElementById('seccion-ofertas').classList.add('hidden');
-            
-            const seccion = document.getElementById('seccion-catalogo');
-            seccion.classList.remove('hidden');
-
-            const titulo = document.getElementById('titulo-catalogo');
-            if (category === 'femeninos') {
-                titulo.textContent = 'Perfumes Femeninos';
-                currentActiveList = femeninosList;
-                currentActiveContainer = 'grid-productos';
-                currentActiveCategoryName = 'Femenino';
-                currentCategoryKey = 'femeninos';
-                renderProducts(femeninosList, 'grid-productos', 'Femenino', 'femeninos');
-            } else {
-                titulo.textContent = 'Perfumes Masculinos';
-                currentActiveList = masculinosList;
-                currentActiveContainer = 'grid-productos';
-                currentActiveCategoryName = 'Masculino';
-                currentCategoryKey = 'masculinos';
-                renderProducts(masculinosList, 'grid-productos', 'Masculino', 'masculinos');
-            }
-            
-            seccion.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function renderProducts(list, containerId, categoryName, catKey) {
-            const container = document.getElementById(containerId);
-            const precioCustom = document.getElementById('admin-precio').value;
-            
-            container.innerHTML = '';
-            list.forEach((perfume, index) => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 flex flex-col justify-between";
-                
-                let imgUrl = imagenesPersonalizadas[catKey] && imagenesPersonalizadas[catKey][index];
-                let imagenHtml = '';
-
-                if (imgUrl && imgUrl !== '') {
-                    imagenHtml = `<img src="${imgUrl}" alt="${perfume}" class="w-full h-full object-cover">`;
-                } else {
-                    imagenHtml = `
-                        <div class="text-center">
-                            <svg class="w-8 h-8 mx-auto mb-1 text-amber-600 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                            <span class="text-[10px] font-medium text-stone-600">Tubo Diseñador</span>
-                        </div>`;
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <div class="h-40 bg-stone-100 flex items-center justify-center text-stone-400 p-2 relative overflow-hidden">
-                            <span class="absolute top-2 left-2 z-10 bg-stone-900 text-white text-[9px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">35 ml</span>
-                            ${imagenHtml}
-                        </div>
-                        <div class="p-3.5">
-                            <span class="text-[10px] font-semibold text-amber-700 tracking-wider uppercase">${categoryName} #${index + 1}</span>
-                            <h3 class="font-bold text-stone-900 text-sm mt-0.5 mb-1">${perfume}</h3>
-                            <p class="text-stone-500 text-[11px] line-clamp-2">Alta fijación y excelente fidelidad aromática.</p>
-                        </div>
-                    </div>
-                    <div class="p-3.5 pt-0 flex items-center justify-between border-t border-stone-100 mt-2 pt-2">
-                        <span class="text-xs font-bold text-stone-900">${precioCustom}</span>
-                        <a href="https://wa.me/59896643887?text=Hola,%20quiero%20consultar%20por%20el%20tubo%20de%20${encodeURIComponent(perfume)}%2035ml" target="_blank" class="bg-stone-900 text-white text-[11px] px-3 py-1.5 rounded-lg font-medium hover:bg-amber-700 transition">Consultar</a>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-    </script>
-
-</body>
-</html>
+            const submenu = document.getElementById('catalogo-submenu');
+            const secTrabaja = document.getElementById('seccion-trabaja');
+            const secOfertas = document.getElementById('seccion-ofertas');
+            const seccion = document.getElementById('seccion-cata
