@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uru Perfumes | Tubos Concentrados 35ml Uruguay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Header Optimizado para Celular -->
+        <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200">
+            <div class="max-w-md mx-auto px-4 h-16 flex items-center justify-between">
+                <span class="text-base font-extrabold tracking-wider text-stone-900 font-cinzel">
+                    URU <span class="font-light text-amber-700">PERFUMES</span>
+                </span>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="toggleAdminPanel()" class="bg-stone-100 hover:bg-stone-200 text-stone-800 px-2.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider transition border border-stone-300">
+                        ⚙️ Admin
+                    </button>
+                    <a href="https://wa.me/59896643887" target="_blank" class="bg-stone-900 text-white px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider hover:bg-amber-800 transition shadow-sm">
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Panel de Administración -->
+        <div id="admin-panel" class="hidden bg-stone-900 text-white border-b border-stone-800 py-6 px-4">
+            <div class="max-w-md mx-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-bold font-cinzel text-amber-400">🔧 Panel Admin (Celular)</h3>
+                    <button type="button" onclick="toggleAdminPanel()" class="text-xs bg-stone-800 px-2.5 py-1 rounded text-stone-300">Cerrar [X]</button>
+                </div>
+                <div class="space-y-4 text-xs">
+                    <div class="bg-stone-800 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <label class="block text-stone-400">Precio general ($):</label>
+                        <input type="text" id="admin-precio" value="$450" class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white" oninput="refrescarVistaActual()">
+                    </div>
+                    <div class="bg-stone-800 p-4 rounded-xl border border-stone-700 space-y-2">
+                        <label class="block text-stone-400">Categoría:</label>
+                        <select id="admin-cat-select" class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white">
+                            <option value="femeninos">Femeninos</option>
+                            <option value="masculinos">Masculinos</option>
+                            <option value="ofertas">Ofertas Vigentes</option>
+                        </select>
+                        <label class="block text-stone-400 mt-2">Nº de Producto (1 al 30):</label>
+                        <input type="number" id="admin-prod-num" min="1" max="30" value="1" class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white">
+                        <label class="block text-stone-400 mt-2">URL Foto:</label>
+                        <input type="text" id="admin-prod-img" placeholder="https://..." class="w-full bg-stone-900 border border-stone-700 rounded p-2 text-white mb-3">
+                        <button type="button" onclick="guardarImagenIndividual()" class="w-full bg-amber-600 hover:bg-amber-700 text-stone-900 font-bold py-2 rounded transition">
+                            Guardar Imagen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Section Formato Móvil -->
+        <section class="relative bg-stone-900 text-white py-14 px-4 text-center overflow-hidden">
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-md mx-auto relative z-10">
+                <div class="inline-block mb-4 border-b-2 border-amber-500 pb-1">
+                    <h1 class="text-3xl font-extrabold tracking-wider font-cinzel text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
+                        URU PERFUMES
+                    </h1>
+                </div>
+                <p class="text-stone-300 text-sm mb-6 font-light leading-relaxed px-2">
+                    Llevá tus fragancias preferidas de diseñador a todos lados. Prácticos, económicos, de máxima fijación y estela superior.
+                </p>
+
+                <!-- Botones Principales -->
+                <div class="flex flex-col gap-3">
+                    <button type="button" onclick="toggleCatalogoMenu()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-xl transition shadow-md text-sm">
+                        Catálogo de fragancias
+                    </button>
+                    <button type="button" onclick="showSection('trabaja')" class="w-full bg-stone-800 hover:bg-stone-700 border border-stone-600 text-white font-medium py-3 rounded-xl transition text-sm">
+                        ¿Quieres trabajar con nosotros?
+                    </button>
+                    <button type="button" onclick="showSection('ofertas')" class="w-full bg-stone-800 hover:bg-stone-700 border border-stone-600 text-white font-medium py-3 rounded-xl transition text-sm">
+                        Ofertas vigentes
+                    </button>
+                </div>
+
+                <!-- Submenú de Catálogo -->
+                <div id="catalogo-submenu" class="hidden mt-4 p-3 bg-stone-800 rounded-xl border border-stone-700 flex flex-col gap-2">
+                    <span class="text-[11px] text-amber-400 font-semibold uppercase tracking-wider">Seleccioná categoría:</span>
+                    <button type="button" onclick="loadCategory('femeninos')" class="w-full bg-amber-500 hover:bg-amber-600 text-stone-900 font-bold py-2 rounded-lg text-xs transition">
+                        Femeninos (30)
+                    </button>
+                    <button type="button" onclick="loadCategory('masculinos')" class="w-full bg-amber-500 hover:bg-amber-600 text-stone-900 font-bold py-2 rounded-lg text-xs transition">
+                        Masculinos (30)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenido Dinámico -->
+        <main class="max-w-md mx-auto px-4 py-8">
+            <!-- Catálogo -->
+            <div id="seccion-catalogo" class="hidden">
+                <div class="text-center mb-6">
+                    <h2 id="titulo-catalogo" class="text-xl font-bold tracking-tight text-stone-900">Catálogo</h2>
+                    <p class="text-stone-500 text-xs mt-1">Productos disponibles en stock</p>
+                </div>
+                <div id="grid-productos" class="flex flex-col gap-4"></div>
+            </div>
+
+            <!-- Trabaja con nosotros -->
+            <div id="seccion-trabaja" class="hidden bg-white p-6 rounded-2xl border border-stone-200 shadow-sm text-center">
+                <h2 class="text-xl font-bold text-stone-900 mb-3 font-cinzel">Sumate a Uru Perfumes</h2>
+                <p class="text-stone-600 text-xs leading-relaxed mb-4 text-left">
+                    ¿Querés iniciar tu propio negocio con baja inversión y alta rentabilidad? Unite a nuestro equipo de revendedores en Paysandú y todo Uruguay con stock permanente en calidad oro de 35ml.
+                </p>
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs text-stone-700 space-y-2 mb-4 text-left">
+                    <p>📋 <strong>Condiciones:</strong></p>
+                    <ul class="list-disc pl-4 space-y-1 text-[11px]">
+                        <li>Compra mínima inicial accesible.</li>
+                        <li>Asesoramiento personalizado.</li>
+                        <li>Envíos rápidos a todo el país.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/59896643887?text=Hola,%20quiero%20saber%20más%20sobre%20cómo%20trabajar%20con%20Uru%20Perfumes" target="_blank" class="block w-full bg-stone-900 text-white text-xs font-semibold py-3 rounded-xl hover:bg-amber-700 transition">
+                    Postularme por WhatsApp
+                </a>
+            </div>
+
+            <!-- Ofertas Vigentes -->
+            <div id="seccion-ofertas" class="hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-xl font-bold tracking-tight text-stone-900">🔥 Ofertas Vigentes</h2>
+                    <p class="text-stone-500 text-xs mt-1">Selección especial con descuentos</p>
+                </div>
+                <div id="grid-ofertas" class="flex flex-col gap-4"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-8 px-4 text-center border-t border-stone-800 mt-12">
+        <div class="max-w-md mx-auto">
+            <div class="text-white font-bold text-sm tracking-wider font-cinzel mb-1">
+                URU <span class="text-amber-600">PERFUMES</span>
+            </div>
+            <p class="text-[11px] text-stone-500">© 2026 Uru Perfumes • Uruguay.</p>
+        </div>
+    </footer>
+
+    <!-- Script con Protección por Contraseña para el Admin -->
+    <script>
+        const femeninosList = [
+            "La Vie Est Belle - Lancôme", "Good Girl - Carolina Herrera", "212 VIP Rosé - Carolina Herrera", 
+            "Olympéa - Paco Rabanne", "J'adore - Dior", "La Nuit Trésor - Lancôme", "Scandal - Jean Paul Gaultier", 
+            "Black Opium - Yves Saint Laurent", "Mon Guerlain - Guerlain", "Sí - Giorgio Armani", 
+            "La Petite Robe Noire - Lancôme", "Chance Eau Tendre - Chanel", "Coco Mademoiselle - Chanel", 
+            "Alien - Mugler", "Angel - Mugler", "Light Blue - Dolce & Gabbana", "The One - Dolce & Gabbana", 
+            "Euphoria - Calvin Klein", "Prada Paradoxe - Prada", "Bloom - Gucci", 
+            "Guilty - Gucci", "Idôle - Lancôme", "Very Good Girl - Carolina Herrera", "Libre - Yves Saint Laurent", 
+            "FlowerbyKenzo - Kenzo", "Signorina - Salvatore Ferragamo", "Bright Crystal - Versace", 
+            "Eros Pour Femme - Versace", "My Way - Giorgio Armani", "Good Girl Légère - Carolina Herrera"
+        ];
+
+        const masculinosList = [
+            "1 Million - Paco Rabanne", "Sauvage - Dior", "Invictus - Paco Rabanne", 
+            "Acqua Di Gio - Giorgio Armani", "Bleu de Chanel - Chanel", "Eros - Versace", 
+            "Le Male - Jean Paul Gaultier", "Bad Boy - Carolina Herrera", "212 VIP Men - Carolina Herrera", 
+            "The One for Men - Dolce & Gabbana", "Light Blue Pour Homme - Dolce & Gabbana", "Boss Bottled - Hugo Boss", 
+            "Acqua Di Gio Profumo - Giorgio Armani", "Stronger With You - Giorgio Armani", "Y Eau de Toilette - Yves Saint Laurent", 
+            "Polo Blue - Ralph Lauren", "Polo Red - Ralph Lauren", "Gentleman - Givenchy", 
+            "Luna Rossa Carbon - Prada", "Toy Boy - Moschino", "L'Homme Idéal - Guerlain", 
+            "Terres d'Hermès - Hermès", "Burberry Hero - Burberry", "Allure Homme Sport - Chanel", 
+            "Legend - Montblanc", "Explorer - Montblanc", "Pure XS - Paco Rabanne", 
+            "Phantom - Paco Rabanne", "Scandal Pour Homme - Jean Paul Gaultier", "Invicto Victory - Paco Rabanne"
+        ];
+
+        const ofertasList = [
+            "La Vie Est Belle - Lancôme", "Good Girl - Carolina Herrera", 
+            "1 Million - Paco Rabanne", "Sauvage - Dior", 
+            "Invictus - Paco Rabanne", "212 VIP Rosé - Carolina Herrera", 
+            "Acqua Di Gio - Giorgio Armani", "Olympéa - Paco Rabanne", 
+            "Bleu de Chanel - Chanel", "Eros - Versace"
+        ];
+
+        let imagenesPersonalizadas = { femeninos: {}, masculinos: {}, ofertas: {} };
+        let currentActiveList = null;
+        let currentActiveContainer = null;
+        let currentActiveCategoryName = null;
+        let currentCategoryKey = null;
+
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            // Si el panel está oculto, pedimos contraseña primero
+            if (panel.classList.contains('hidden')) {
+                const password = prompt("Por favor, ingrese la contraseña de administrador:");
+                if (password === "2008#") {
+                    panel.classList.remove('hidden');
+                } else if (password !== null) {
+                    alert("Contraseña incorrecta.");
+                }
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        function guardarImagenIndividual() {
+            const cat = document.getElementById('admin-cat-select').value;
+            const num = parseInt(document.getElementById('admin-prod-num').value) - 1;
+            const url = document.getElementById('admin-prod-img').value.trim();
+
+            if (num >= 0) {
+                imagenesPersonalizadas[cat][num] = url;
+                alert(`¡Imagen guardada para ${cat}, producto #${num + 1}!`);
+                refrescarVistaActual();
+            } else {
+                alert('Número de producto inválido.');
+            }
+        }
+
+        function refrescarVistaActual() {
+            if (currentActiveList && currentActiveContainer) {
+                renderProducts(currentActiveList, currentActiveContainer, currentActiveCategoryName, currentCategoryKey);
+            }
+        }
+
+        function toggleCatalogoMenu() {
+            document.getElementById('catalogo-submenu').classList.toggle('hidden');
+        }
+
+        function showSection(sectionId) {
+            document.getElementById('catalogo-submenu').classList.add('hidden');
+            document.getElementById('seccion-catalogo').classList.add('hidden');
+            document.getElementById('seccion-trabaja').classList.add('hidden');
+            document.getElementById('seccion-ofertas').classList.add('hidden');
+
+            if (sectionId === 'trabaja') {
+                document.getElementById('seccion-trabaja').classList.remove('hidden');
+            } else if (sectionId === 'ofertas') {
+                document.getElementById('seccion-ofertas').classList.remove('hidden');
+                currentActiveList = ofertasList;
+                currentActiveContainer = 'grid-ofertas';
+                currentActiveCategoryName = 'Oferta Especial';
+                currentCategoryKey = 'ofertas';
+                renderProducts(ofertasList, 'grid-ofertas', 'Oferta Especial', 'ofertas');
+            }
+        }
+
+        function loadCategory(category) {
+            document.getElementById('catalogo-submenu').classList.add('hidden');
+            document.getElementById('seccion-trabaja').classList.add('hidden');
+            document.getElementById('seccion-ofertas').classList.add('hidden');
+            
+            const seccion = document.getElementById('seccion-catalogo');
+            seccion.classList.remove('hidden');
+
+            const titulo = document.getElementById('titulo-catalogo');
+            if (category === 'femeninos') {
+                titulo.textContent = 'Perfumes Femeninos';
+                currentActiveList = femeninosList;
+                currentActiveContainer = 'grid-productos';
+                currentActiveCategoryName = 'Femenino';
+                currentCategoryKey = 'femeninos';
+                renderProducts(femeninosList, 'grid-productos', 'Femenino', 'femeninos');
+            } else {
+                titulo.textContent = 'Perfumes Masculinos';
+                currentActiveList = masculinosList;
+                currentActiveContainer = 'grid-productos';
+                currentActiveCategoryName = 'Masculino';
+                currentCategoryKey = 'masculinos';
+                renderProducts(masculinosList, 'grid-productos', 'Masculino', 'masculinos');
+            }
+            
+            seccion.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderProducts(list, containerId, categoryName, catKey) {
+            const container = document.getElementById(containerId);
+            const precioCustom = document.getElementById('admin-precio').value;
+            
+            container.innerHTML = '';
+            list.forEach((perfume, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 flex flex-col justify-between";
+                
+                let imgUrl = imagenesPersonalizadas[catKey] && imagenesPersonalizadas[catKey][index];
+                let imagenHtml = '';
+
+                if (imgUrl && imgUrl !== '') {
+                    imagenHtml = `<img src="${imgUrl}" alt="${perfume}" class="w-full h-full object-cover">`;
+                } else {
+                    imagenHtml = `
+                        <div class="text-center">
+                            <svg class="w-8 h-8 mx-auto mb-1 text-amber-600 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            <span class="text-[10px] font-medium text-stone-600">Tubo Diseñador</span>
+                        </div>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-40 bg-stone-100 flex items-center justify-center text-stone-400 p-2 relative overflow-hidden">
+                            <span class="absolute top-2 left-2 z-10 bg-stone-900 text-white text-[9px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">35 ml</span>
+                            ${imagenHtml}
+                        </div>
+                        <div class="p-3.5">
+                            <span class="text-[10px] font-semibold text-amber-700 tracking-wider uppercase">${categoryName} #${index + 1}</span>
+                            <h3 class="font-bold text-stone-900 text-sm mt-0.5 mb-1">${perfume}</h3>
+                            <p class="text-stone-500 text-[11px] line-clamp-2">Alta fijación y excelente fidelidad aromática.</p>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-0 flex items-center justify-between border-t border-stone-100 mt-2 pt-2">
+                        <span class="text-xs font-bold text-stone-900">${precioCustom}</span>
+                        <a href="https://wa.me/59896643887?text=Hola,%20quiero%20consultar%20por%20el%20tubo%20de%20${encodeURIComponent(perfume)}%2035ml" target="_blank" class="bg-stone-900 text-white text-[11px] px-3 py-1.5 rounded-lg font-medium hover:bg-amber-700 transition">Consultar</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+
+</body>
+</html>
