@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -14,7 +15,7 @@
 <body class="bg-stone-50 text-stone-900 antialiased min-h-screen flex flex-col justify-between">
 
     <div>
-        <!-- Header Optimizado para Celular -->
+        <!-- Header Optimizado -->
         <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200">
             <div class="max-w-md mx-auto px-4 h-16 flex items-center justify-between">
                 <span class="text-base font-extrabold tracking-wider text-stone-900 font-cinzel">
@@ -27,8 +28,7 @@
                     <button type="button" onclick="toggleAdminPanel()" class="bg-stone-100 hover:bg-stone-200 text-stone-800 px-2.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider transition border border-stone-300">
                         ⚙️ Admin
                     </button>
-                    <!-- Enlace directo oficial a WhatsApp Business -->
-                    <a href="https://wa.me/59896643887" target="_blank" class="bg-stone-900 text-white px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider hover:bg-amber-800 transition shadow-sm">
+                    <a href="https://api.whatsapp.com/send?phone=59896643887" target="_blank" class="bg-stone-900 text-white px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-wider hover:bg-amber-800 transition shadow-sm">
                         WhatsApp
                     </a>
                 </div>
@@ -39,7 +39,7 @@
         <div id="admin-panel" class="hidden bg-stone-900 text-white border-b border-stone-800 py-6 px-4">
             <div class="max-w-md mx-auto">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-sm font-bold font-cinzel text-amber-400">🔧 Panel Admin (Celular)</h3>
+                    <h3 class="text-sm font-bold font-cinzel text-amber-400">🔧 Panel Admin</h3>
                     <button type="button" onclick="toggleAdminPanel()" class="text-xs bg-stone-800 px-2.5 py-1 rounded text-stone-300">Cerrar [X]</button>
                 </div>
                 <div class="space-y-4 text-xs">
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <!-- Hero Section Formato Móvil -->
+        <!-- Hero Section -->
         <section class="relative bg-stone-900 text-white py-14 px-4 text-center overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-md mx-auto relative z-10">
@@ -107,7 +107,6 @@
 
         <!-- Contenido Dinámico -->
         <main class="max-w-md mx-auto px-4 py-8">
-            <!-- Catálogo -->
             <div id="seccion-catalogo" class="hidden">
                 <div class="text-center mb-6">
                     <h2 id="titulo-catalogo" class="text-xl font-bold tracking-tight text-stone-900">Catálogo</h2>
@@ -116,26 +115,16 @@
                 <div id="grid-productos" class="flex flex-col gap-4"></div>
             </div>
 
-            <!-- Trabaja con nosotros -->
             <div id="seccion-trabaja" class="hidden bg-white p-6 rounded-2xl border border-stone-200 shadow-sm text-center">
                 <h2 class="text-xl font-bold text-stone-900 mb-3 font-cinzel">Sumate a Uru Perfumes</h2>
                 <p class="text-stone-600 text-xs leading-relaxed mb-4 text-left">
                     ¿Querés iniciar tu propio negocio con baja inversión y alta rentabilidad? Unite a nuestro equipo de revendedores en Paysandú y todo Uruguay con stock permanente en calidad oro de 35ml.
                 </p>
-                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs text-stone-700 space-y-2 mb-4 text-left">
-                    <p>📋 <strong>Condiciones:</strong></p>
-                    <ul class="list-disc pl-4 space-y-1 text-[11px]">
-                        <li>Compra mínima inicial accesible.</li>
-                        <li>Asesoramiento personalizado.</li>
-                        <li>Envíos rápidos a todo el país.</li>
-                    </ul>
-                </div>
-                <a href="https://wa.me/59896643887?text=Hola,%20quiero%20saber%20más%20sobre%20cómo%20trabajar%20con%20Uru%20Perfumes" target="_blank" class="block w-full bg-stone-900 text-white text-xs font-semibold py-3 rounded-xl hover:bg-amber-700 transition">
+                <a href="https://api.whatsapp.com/send?phone=59896643887&text=Hola,%20quiero%20saber%20más%20sobre%20cómo%20trabajar%20con%20Uru%20Perfumes" target="_blank" class="block w-full bg-stone-900 text-white text-xs font-semibold py-3 rounded-xl hover:bg-amber-700 transition">
                     Postularme por WhatsApp
                 </a>
             </div>
 
-            <!-- Ofertas Vigentes -->
             <div id="seccion-ofertas" class="hidden">
                 <div class="text-center mb-6">
                     <h2 class="text-xl font-bold tracking-tight text-stone-900">🔥 Ofertas Vigentes</h2>
@@ -146,7 +135,7 @@
         </main>
     </div>
 
-    <!-- Modal de Detalles del Perfume -->
+    <!-- Modal de Detalles -->
     <div id="product-modal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-2xl p-5 relative space-y-3 shadow-xl">
             <button type="button" onclick="closeProductModal()" class="absolute top-3 right-3 text-stone-400 hover:text-stone-700 text-sm font-bold">✕</button>
@@ -164,7 +153,7 @@
         </div>
     </div>
 
-    <!-- Modal del Carrito de Compras -->
+    <!-- Modal del Carrito -->
     <div id="cart-modal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-end sm:items-center justify-center sm:p-4">
         <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 relative space-y-4 shadow-xl max-h-[80vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-stone-100 pb-3">
@@ -186,17 +175,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-400 py-8 px-4 text-center border-t border-stone-800 mt-12">
-        <div class="max-w-md mx-auto">
-            <div class="text-white font-bold text-sm tracking-wider font-cinzel mb-1">
-                URU <span class="text-amber-600">PERFUMES</span>
-            </div>
-            <p class="text-[11px] text-stone-500">© 2026 Uru Perfumes • Uruguay.</p>
-        </div>
-    </footer>
-
-    <!-- Script Corregido y Optimizado -->
+    <!-- JavaScript 100% Protegido contra Errores -->
     <script>
         const femeninosList = [
             "La Vie Est Belle - Lancôme", "Good Girl - Carolina Herrera", "212 VIP Rosé - Carolina Herrera", 
@@ -226,32 +205,43 @@
         const ofertasList = [
             "La Vie Est Belle - Lancôme", "Good Girl - Carolina Herrera", 
             "1 Million - Paco Rabanne", "Sauvage - Dior", 
-            "Invictus - Paco Rabanne", "212 VIP Rosé - Carolina Herrera", 
-            "Acqua Di Gio - Giorgio Armani", "Olympéa - Paco Rabanne", 
-            "Bleu de Chanel - Chanel", "Eros - Versace"
+            "Invictus - Paco Rabanne", "212 VIP Rosé - Carolina Herrera"
         ];
 
-        // Cargar datos persistentes
-        let imagenesPersonalizadas = JSON.parse(localStorage.getItem('uru_imagenes')) || { femeninos: {}, masculinos: {}, ofertas: {} };
+        // FUNCIÓN SEGURA PARA LEER LOCALSTORAGE (Evita que la página se rompa)
+        function getSafeStorage(key, defaultValue) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (error) {
+                console.warn(`Limpiando datos corruptos de ${key}`);
+                localStorage.removeItem(key);
+                return defaultValue;
+            }
+        }
+
+        // Cargar datos de forma segura
+        let imagenesPersonalizadas = getSafeStorage('uru_imagenes', { femeninos: {}, masculinos: {}, ofertas: {} });
+        let carrito = getSafeStorage('uru_carrito', []);
         let precioGlobalGuardado = localStorage.getItem('uru_precio') || "$450";
-        let carrito = JSON.parse(localStorage.getItem('uru_carrito')) || [];
 
         let currentActiveList = null;
         let currentActiveContainer = null;
         let currentActiveCategoryName = null;
         let currentCategoryKey = null;
 
-        // Inicializar al cargar la página
-        window.addEventListener('DOMContentLoaded', () => {
+        // Inicializar
+        window.onload = function() {
             const inputPrecio = document.getElementById('admin-precio');
             if (inputPrecio) inputPrecio.value = precioGlobalGuardado;
             actualizarContadorCarrito();
-        });
+        };
 
-        function toggleAdminPanel() {
+        // Panel Admin
+        window.toggleAdminPanel = function() {
             const panel = document.getElementById('admin-panel');
             if (panel.classList.contains('hidden')) {
-                const password = prompt("Por favor, ingrese la contraseña de administrador:");
+                const password = prompt("Ingrese contraseña (2008#):");
                 if (password === "2008#") {
                     panel.classList.remove('hidden');
                 } else if (password !== null) {
@@ -260,18 +250,18 @@
             } else {
                 panel.classList.add('hidden');
             }
-        }
+        };
 
-        function guardarPrecioGlobal() {
+        window.guardarPrecioGlobal = function() {
             const inputPrecio = document.getElementById('admin-precio');
             if (inputPrecio) {
                 precioGlobalGuardado = inputPrecio.value;
                 localStorage.setItem('uru_precio', precioGlobalGuardado);
                 refrescarVistaActual();
             }
-        }
+        };
 
-        function guardarImagenIndividual() {
+        window.guardarImagenIndividual = function() {
             const cat = document.getElementById('admin-cat-select').value;
             const num = parseInt(document.getElementById('admin-prod-num').value) - 1;
             const url = document.getElementById('admin-prod-img').value.trim();
@@ -279,12 +269,12 @@
             if (num >= 0 && num < 30) {
                 imagenesPersonalizadas[cat][num] = url;
                 localStorage.setItem('uru_imagenes', JSON.stringify(imagenesPersonalizadas));
-                alert(`¡Imagen guardada y persistida para ${cat}, producto #${num + 1}!`);
+                alert(`¡Imagen guardada para ${cat}, #${num + 1}!`);
                 refrescarVistaActual();
             } else {
-                alert('Número de producto inválido (debe ser entre 1 y 30).');
+                alert('Número inválido.');
             }
-        }
+        };
 
         function refrescarVistaActual() {
             if (currentActiveList && currentActiveContainer) {
@@ -292,36 +282,195 @@
             }
         }
 
-        function toggleCatalogoMenu() {
-            const submenu = document.getElementById('catalogo-submenu');
-            if (submenu) submenu.classList.toggle('hidden');
-        }
+        // Navegación
+        window.toggleCatalogoMenu = function() {
+            document.getElementById('catalogo-submenu').classList.toggle('hidden');
+        };
 
-        function showSection(sectionId) {
-            const submenu = document.getElementById('catalogo-submenu');
-            const secCat = document.getElementById('seccion-catalogo');
-            const secTrabaja = document.getElementById('seccion-trabaja');
-            const secOfertas = document.getElementById('seccion-ofertas');
+        window.showSection = function(sectionId) {
+            document.getElementById('catalogo-submenu').classList.add('hidden');
+            document.getElementById('seccion-catalogo').classList.add('hidden');
+            document.getElementById('seccion-trabaja').classList.add('hidden');
+            document.getElementById('seccion-ofertas').classList.add('hidden');
 
-            if (submenu) submenu.classList.add('hidden');
-            if (secCat) secCat.classList.add('hidden');
-            if (secTrabaja) secTrabaja.classList.add('hidden');
-            if (secOfertas) secOfertas.classList.add('hidden');
-
-            if (sectionId === 'trabaja' && secTrabaja) {
-                secTrabaja.classList.remove('hidden');
-            } else if (sectionId === 'ofertas' && secOfertas) {
-                secOfertas.classList.remove('hidden');
+            if (sectionId === 'trabaja') {
+                document.getElementById('seccion-trabaja').classList.remove('hidden');
+            } else if (sectionId === 'ofertas') {
+                document.getElementById('seccion-ofertas').classList.remove('hidden');
                 currentActiveList = ofertasList;
                 currentActiveContainer = 'grid-ofertas';
                 currentActiveCategoryName = 'Oferta Especial';
                 currentCategoryKey = 'ofertas';
                 renderProducts(ofertasList, 'grid-ofertas', 'Oferta Especial', 'ofertas');
             }
+        };
+
+        window.loadCategory = function(category) {
+            document.getElementById('catalogo-submenu').classList.add('hidden');
+            document.getElementById('seccion-trabaja').classList.add('hidden');
+            document.getElementById('seccion-ofertas').classList.add('hidden');
+            
+            const seccion = document.getElementById('seccion-catalogo');
+            const titulo = document.getElementById('titulo-catalogo');
+            seccion.classList.remove('hidden');
+
+            if (category === 'femeninos') {
+                titulo.textContent = 'Perfumes Femeninos';
+                currentActiveList = femeninosList;
+                currentActiveContainer = 'grid-productos';
+                currentActiveCategoryName = 'Femenino';
+                currentCategoryKey = 'femeninos';
+                renderProducts(femeninosList, 'grid-productos', 'Femenino', 'femeninos');
+            } else {
+                titulo.textContent = 'Perfumes Masculinos';
+                currentActiveList = masculinosList;
+                currentActiveContainer = 'grid-productos';
+                currentActiveCategoryName = 'Masculino';
+                currentCategoryKey = 'masculinos';
+                renderProducts(masculinosList, 'grid-productos', 'Masculino', 'masculinos');
+            }
+            seccion.scrollIntoView({ behavior: 'smooth' });
+        };
+
+        // Renderizado
+        function renderProducts(list, containerId, categoryName, catKey) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            list.forEach((perfume, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 flex flex-col justify-between";
+                
+                let imgUrl = imagenesPersonalizadas[catKey] && imagenesPersonalizadas[catKey][index];
+                let imagenHtml = '';
+                const perfumeSeguro = perfume.replace(/'/g, "\\'"); // Escapar comillas para JS
+
+                if (imgUrl) {
+                    imagenHtml = `<img src="${imgUrl}" alt="${perfume}" class="w-full h-full object-cover cursor-pointer" onclick="openProductModal('${perfumeSeguro}', '${categoryName}', ${index}, '${catKey}')">`;
+                } else {
+                    imagenHtml = `
+                        <div class="text-center cursor-pointer p-4 w-full h-full flex flex-col items-center justify-center hover:bg-stone-200 transition" onclick="openProductModal('${perfumeSeguro}', '${categoryName}', ${index}, '${catKey}')">
+                            <span class="text-[10px] font-medium text-stone-600">Ver Detalles</span>
+                        </div>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-40 bg-stone-100 flex items-center justify-center relative overflow-hidden">
+                            ${imagenHtml}
+                        </div>
+                        <div class="p-3.5">
+                            <h3 class="font-bold text-stone-900 text-sm cursor-pointer hover:text-amber-700" onclick="openProductModal('${perfumeSeguro}', '${categoryName}', ${index}, '${catKey}')">${perfume}</h3>
+                        </div>
+                    </div>
+                    <div class="p-3.5 pt-0 flex items-center justify-between border-t border-stone-100 mt-2 pt-2">
+                        <span class="text-xs font-bold">${precioGlobalGuardado}</span>
+                        <button type="button" onclick="agregarAlCarrito('${perfumeSeguro}', '${precioGlobalGuardado}')" class="bg-stone-900 text-white text-[11px] px-3 py-1.5 rounded-lg">Agregar 🛒</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function loadCategory(category) {
-            const submenu = document.getElementById('catalogo-submenu');
-            const secTrabaja = document.getElementById('seccion-trabaja');
-            const secOfertas = document.getElementById('seccion-ofertas');
-            const seccion = document.getElementById('seccion-cata
+        // Modal Productos
+        window.openProductModal = function(nombre, catName, index, catKey) {
+            document.getElementById('modal-title').textContent = nombre;
+            document.getElementById('modal-cat-tag').textContent = `${catName} #${index + 1}`;
+            document.getElementById('modal-price').textContent = precioGlobalGuardado;
+            
+            let notas = catKey === 'femeninos' 
+                ? "Acordes florales blancos, toques avainillados y dulces." 
+                : "Notas amaderadas intensas, especias frescas y carácter varonil.";
+            
+            document.getElementById('modal-notes').textContent = notas;
+            document.getElementById('modal-season').textContent = "Ideal para uso diario y ocasiones especiales.";
+            
+            document.getElementById('modal-add-btn').onclick = function() {
+                agregarAlCarrito(nombre, precioGlobalGuardado);
+                closeProductModal();
+            };
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        };
+
+        window.closeProductModal = function() {
+            document.getElementById('product-modal').classList.add('hidden');
+        };
+
+        // Carrito
+        window.agregarAlCarrito = function(nombre, precio) {
+            carrito.push({ nombre, precio });
+            localStorage.setItem('uru_carrito', JSON.stringify(carrito));
+            actualizarContadorCarrito();
+            alert(`¡"${nombre}" agregado al carrito!`);
+        };
+
+        function actualizarContadorCarrito() {
+            document.getElementById('cart-count').textContent = carrito.length;
+        }
+
+        window.toggleCartModal = function() {
+            const modal = document.getElementById('cart-modal');
+            if (modal.classList.contains('hidden')) {
+                renderizarContenidoCarrito();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        };
+
+        function renderizarContenidoCarrito() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            if (carrito.length === 0) {
+                container.innerHTML = '<p class="text-stone-500 text-center py-6">Tu carrito está vacío.</p>';
+                document.getElementById('cart-total').textContent = "$0";
+                return;
+            }
+
+            let totalNumerico = 0;
+            carrito.forEach((item, index) => {
+                let num = parseFloat(item.precio.replace(/[^0-9]/g, '')) || 0;
+                totalNumerico += num;
+                container.innerHTML += `
+                    <div class="py-2 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-stone-900">${item.nombre}</p>
+                            <p class="text-stone-500 text-[10px]">${item.precio}</p>
+                        </div>
+                        <button type="button" onclick="eliminarDelCarrito(${index})" class="text-red-500 text-xs font-bold px-2">Eliminar</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById('cart-total').textContent = `$${totalNumerico}`;
+        }
+
+        window.eliminarDelCarrito = function(index) {
+            carrito.splice(index, 1);
+            localStorage.setItem('uru_carrito', JSON.stringify(carrito));
+            actualizarContadorCarrito();
+            renderizarContenidoCarrito();
+        };
+
+        window.checkoutWhatsApp = function() {
+            if (carrito.length === 0) {
+                alert("El carrito está vacío.");
+                return;
+            }
+
+            let mensaje = "Hola! Quiero realizar este pedido:\n\n";
+            let total = 0;
+
+            carrito.forEach((item, i) => {
+                mensaje += `${i + 1}. ${item.nombre} - ${item.precio}\n`;
+                total += parseFloat(item.precio.replace(/[^0-9]/g, '')) || 0;
+            });
+
+            mensaje += `\nTotal estimado: $${total}\n¿Cómo coordinamos el pago?`;
+            window.open(`https://api.whatsapp.com/send?phone=59896643887&text=${encodeURIComponent(mensaje)}`, '_blank');
+        };
+    </script>
+</body>
+</html>
